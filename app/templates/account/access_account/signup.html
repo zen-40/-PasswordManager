@@ -1,0 +1,12 @@
+{% extends 'home.html' %}
+{% load bootstrap3 %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h1>Signup login panel</h1>
+<form method="post">
+  {% csrf_token %}
+  {{ form|crispy  }}
+  <button type="submit" class="btn btn-primary">Signup</button>
+</form>
+{% endblock %}

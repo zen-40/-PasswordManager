@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+{% block content %}
+<div class="jumbotron">
+  <h1>Welcome,<br> in my password manager.</h1>
+  <p>This simple web application was created for recruitment purposes. You can use it to manage passwords and to share them.</p>
+  <p>
+    <a class="btn btn-lg btn-primary" href="{% url 'app:login' %}" role="button">Starn now &raquo;</a>
+  </p>
+</div>
+{% endblock %}

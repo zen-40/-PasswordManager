@@ -1,0 +1,15 @@
+{% extends 'home.html' %}
+{% load bootstrap3 %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h1>Account login panel</h1>
+<form method="post">
+  {% csrf_token %}
+  {{ form|crispy  }}
+  <button type="submit" class="btn btn-primary">Login</button>
+</form>
+<h5>*You can use a test user with many objects or create a <a href="{% url 'app:signup' %}">new account</a>.</h5>
+<h5>Ussername: <b>django</b></h5>
+<h5>Password: <b>HelloWorld123</b></h5>
+{% endblock %}
