@@ -1,0 +1,102 @@
+{% extends 'base_account.html' %}
+{% load bootstrap3 %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container-fluid">
+  <!-- left menu -->
+  <div class="row">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+      <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item active">
+            <a class="nav-link active" href="{% url 'app:profile' %}">
+              All objects
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'app:profile_new_entry' %}">
+              <span data-feather="file"></span>
+              <b>Manage objects & shares &rarr;</b>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+	<!-- end left menu -->
+    
+	<!-- basic section -->
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Add new object.</h1>
+      </div>
+	  
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>Name website</th>
+              <th>URL</th>
+              <th>Account name</th>
+              <th>Password</th>
+              <th>Option</th>
+            </tr>
+          </thead>
+          <tbody>
+		    <!-- new object form-->
+			<form method="post">
+			{% csrf_token %}
+			  <tr>
+				<td>{{ form.site_name|as_crispy_field }}</td>
+				<td>{{ form.site_url|as_crispy_field }}</td>
+				<td>{{ form.account_name|as_crispy_field }}</td>
+				<td>{{ form.password|as_crispy_field }}</td>
+				<td>
+				  <button class="btn btn-block btn-primary" type="submit">Save</button>
+				</td>
+			  </tr>
+			</form>
+			<!-- end new object form-->
+          </tbody>
+        </table>
+      </div>
+	  
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Objects by date of addition.</h1>
+      </div>
+	  
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>Name website</th>
+              <th>URL</th>
+              <th>Account name</th>
+              <th>Added at</th>
+              <th>Options</th>
+            </tr>
+          </thead>
+          <tbody>
+		    <!-- data objecy -->
+			{% for object in query %}
+            <tr>
+              <td>{{ object.site_name }}</td>
+              <td>{{ object.site_url }}</td>
+              <td>{{ object.account_name }}</td>
+              <td>{{ object.date_created }}</td>
+              <td>
+				<a class="btn btn-primary" href="{% url 'app:profile_object_edit' object.id %}">Edit</a>
+				<a class="btn btn-success" href="{% url 'app:profile_password_shared' object.id %}">Shear</a>
+				<a class="btn btn-danger" href="{% url 'app:profile_object_delete' object.id %}">Delete</a>
+			  </td>
+            </tr>
+			{% endfor %}
+			<!-- end data object -->
+          </tbody>
+        </table>
+      </div>
+    </main>
+	<!-- end basic section -->
+  </div>
+</div>
+{% endblock %}

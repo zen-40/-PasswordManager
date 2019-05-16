@@ -1,0 +1,79 @@
+{% extends 'base_account.html' %}
+{% load bootstrap3 %}
+
+{% block content %}
+<div class="container-fluid">
+  <!-- left menu -->
+  <div class="row">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+      <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item active">
+            <a class="nav-link active" href="{% url 'app:profile' %}">
+              <b>All objects &rarr;</b>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'app:profile_new_entry' %}">
+              Manage objects & shares
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+	<!-- end left menu -->
+
+    <!-- basic section -->
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Dashboard</h1>
+      </div>
+	  
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+		  <!-- name columns -->
+          <thead>
+            <tr>
+              <th>Name website</th>
+              <th>URL</th>
+              <th>Account name</th>
+              <th>Password</th>
+              <th>Redirect</th>
+            </tr>
+          </thead>
+		  <!-- end name columns -->
+          <tbody>
+		    <!-- objects -->
+			{% for object in query %}
+            <tr>
+              <td>{{ object.site_name }}</td>
+              <td>{{ object.site_url }}</td>
+              <td>{{ object.account_name }}</td>
+              <td>
+				<!-- form password -->
+				{% if password == object.id %}
+				<div class="text-danger"><b>{{ object.password }}</b></div>
+				<form method="get">
+				  <button class="btn btn-sm btn-danger" type="submit" name="btn_password_hidden">Hide</button>
+				</form>
+				{% else %}
+				<form method="get">
+				  <button class="btn btn-sm btn-secondary" type="submit" name="btn_password{{ object.id }}">Show</button>
+				</form>
+				{% endif %}
+				<!-- end form password -->
+			  </td>
+              <td>
+				<a class="btn btn-success" href="{{ object.site_url }}" target="_blank">Open website in new tab</a>
+			  </td>
+            </tr>
+			{% endfor %}
+			<!-- end objects -->
+          </tbody>
+        </table>
+      </div>
+    </main>
+	<!-- end basic section -->
+  </div>
+</div>
+{% endblock %}
