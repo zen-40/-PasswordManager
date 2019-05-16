@@ -4,8 +4,11 @@ Django application layout.
 
 My django application consists of 3 main elements.
 1.)Home site
+
 2.)Login panel, user registration, and logout.
+
 3.)Management panel (Visible only for logged in users limited by '@login_required')
+
 
 In the login panel:
 a.)home page where is all password objects with functions such as:
